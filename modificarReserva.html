@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApartHotel Snow</title>
+    <link rel="shortcut icon" href="img/icono.png" type="img/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- css link -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+
+    <!-- header  -->
+    <header class="header">
+
+        <a href="index.html" class="logo"> <i class="fas fa-snowflake"></i> ApartHotel Snow</a>
+
+        <nav class="navbar">
+            <a href="index.html">Inicio</a>
+            <a href="nosotros.html">Sobre Nosotros</a>
+            <a href="servicios.html">Servicios</a>
+            <a href="menu.html">Menu</a>
+            <a href="opiniones.html">Testimonios</a>
+        </nav>
+
+        <div class="icons">
+            <div class="fas fa-user" id="login-btn"></div>
+            <div class="fas fa-bars" id="menu-btn"></div>
+        </div>
+
+        <form class="login-form">
+
+            <h3>formulario login</h3>
+
+            <input type="email" placeholder="ingrese su email" class="box">
+            <input type="password" placeholder="ingrese su password" class="box">
+            <div class="remember">
+                <input type="checkbox">
+                <label>Recordarme</label>
+            </div>
+            <a href="index.html" class="btn">logueate ahora</a>
+
+        </form>
+
+    </header>
+    <br><br><br><br><br>
+
+    <!--fin header -->
+    <main>
+        <section class="home" id="home">
+            <!-- Contenedor principal que será controlado por JavaScript. Este contenedor tendrá dos formularios. -->
+            <div class="app" id="app">
+                <!-- Primer formulario: Selector de producto. LLama a la función obtenerProducto cuando se envíe el formulario -->
+                <form id="form-obtener-reserva">
+                    <label for="nro_reserva">Reserva:</label>
+                    <input type="number" id="nro_reserva" required><br>
+                    <button class="btn" type="submit">Modificar Reserva</button> <a href="reservas.html">Volver a Reservas</a>
+                </form>
+
+                <!-- Segundo formulario: se muestra solo si mostrarReservas es verdadero. Llama a la función guardarCambios -->
+                <div class= "datos-reserva" id="datos-reserva" style="display: none;">
+                    <h2>Datos de la Reserva</h2>
+                    <form id="form-guardar-cambios">
+                        <label for="habitacionModificar">Habitación:</label>
+                        <input type="number" id="habitacionModificar" required><br>
+
+                        <label for="clienteModificar">Cliente:</label>
+                        <input type="number" id="clienteModificar" required><br>
+
+                        <label for="niniosModificar">Niños:</label>
+                        <input type="number" id="niniosModificar" required><br>
+
+                        <label for="adultosModificar">Adultos:</label>
+                        <input type="number" id="adultosModificar" required><br>
+
+                        <label for="ingresoModificar">Fecha Ingreso:</label>
+                        <input type="date" id="ingresoModificar" required><br>
+
+                        <label for="egresoModificar">Fecha Egreso:</label>
+                        <input type="date" id="egresoModificar" required><br>
+
+
+                        <!-- Imagen actual de la reserva - Debe comentarse al subirse al servidor-->
+                        <img id="imagen-actual" style="max-width: 200px; display: none;">
+                        <!-- Vista previa de la nueva imagen seleccionada -->
+                        <img id="imagen-vista-previa" style="max-width: 200px; display: none;">
+
+                        <!-- Input para nueva imagen -->
+                        <label for="nuevaImagen">Nueva Imagen:</label>
+                        <input type="file" id="nuevaImagen"><br>
+
+
+                        <button class="btn" type="submit">Guardar Cambios</button>
+                        <a href="modificarReserva.html">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+            <script>
+                const URL = "https://ggindelli.pythonanywhere.com/"
+                // const URL = "http://127.0.0.1:5000/"
+                
+             
+
+
+                // Al subir al servidor, deberá utilizarse la siguiente ruta. USUARIO debe ser reemplazado por el nombre de usuario de Pythonanywhere
+                //const URL = "https://USUARIO.pythonanywhere.com/"
+
+                // Variables de estado para controlar la visibilidad y los datos del formulario
+                let nro_reserva = '';
+                let nro_habitacion = '';
+                let nro_cliente = '';
+                let cant_ninios = '';
+                let cant_adultos = '';
+                let fecha_ingreso = '';
+                let fecha_egreso = '';
+                let reserva_qr = '';
+                let imagenSeleccionada = null;
+                let imagenUrlTemp = null;
+                let mostrarDatosReserva = false;
+
+                document.getElementById('form-obtener-reserva').addEventListener('submit', obtenerReserva);
+                document.getElementById('form-guardar-cambios').addEventListener('submit', guardarCambios);
+                document.getElementById('nuevaImagen').addEventListener('change', seleccionarImagen);
+
+                // Se ejecuta cuando se envía el formulario de consulta. Realiza una solicitud GET a la API y obtiene los datos del producto correspondiente al código ingresado.
+                function obtenerReserva(event) {
+                    event.preventDefault();
+                    nro_reserva = document.getElementById('nro_reserva').value;
+                    fetch(URL + 'reservas/' + nro_reserva)
+                        .then(response => {
+                            if (response.ok) {
+                                return response.json()
+                            } else {
+                                throw new Error('Error al obtener los datos de la Reserva.')
+                            }
+                        })
+                        .then(data => {
+                            nro_habitacion = data.nro_habitacion;
+                            nro_cliente = data.nro_cliente;
+                            cant_ninios = data.cant_ninios;
+                            cant_adultos = data.cant_adultos;
+                            fecha_ingreso = data.fecha_ingreso;
+                            fecha_egreso = data.fecha_egreso;
+                            reserva_qr = data.reserva_qr;
+                            mostrarDatosReserva = true; //Activa la vista del segundo formulario
+                            mostrarFormulario();
+                        })
+                        .catch(error => {
+                            alert('Reserva no encontrada.');
+                        });
+                }
+
+                // Muestra el formulario con los datos del producto
+                function mostrarFormulario() {
+                    if (mostrarDatosReserva) {
+                        document.getElementById('habitacionModificar').value = nro_habitacion;
+                        document.getElementById('clienteModificar').value = nro_cliente;
+                        document.getElementById('niniosModificar').value = cant_ninios;
+                        document.getElementById('adultosModificar').value = cant_adultos;
+                        document.getElementById('ingresoModificar').value = fecha_ingreso;
+                        document.getElementById('egresoModificar').value = fecha_egreso;
+
+
+                        const imagenActual = document.getElementById('imagen-actual');
+                        if (reserva_qr && !imagenSeleccionada) { // Verifica si imagen_url no está vacía y no se ha seleccionado una imagen
+                            // imagenActual.src = './img/' + reserva_qr;
+                            imagenActual.src = 'https://www.pythonanywhere.com/user/ggindelli/files/home/ggindelli/mysite/img/' + reserva_qr;
+
+                            //Al subir al servidor, deberá utilizarse la siguiente ruta. USUARIO debe ser reemplazado por el nombre de usuario de Pythonanywhere
+                            //imagenActual.src = 'https://www.pythonanywhere.com/user/USUARIO/files/home/USUARIO/mysite/static/imagenes/' + imagen_url;
+                            imagenActual.style.display = 'block'; // Muestra la imagen actual
+                        } else {
+                            imagenActual.style.display = 'none'; // Oculta la imagen si no hay URL
+                        }
+
+                        document.getElementById('datos-reserva').style.display = 'block';
+                    } else {
+                        document.getElementById('datos-reserva').style.display = 'none';
+                    }
+                }
+
+                // Se activa cuando el usuario selecciona una imagen para cargar.
+                function seleccionarImagen(event) {
+                    const file = event.target.files[0];
+                    imagenSeleccionada = file;
+                    imagenUrlTemp = URL.createObjectURL(file); // Crea una URL temporal para la vista previa
+
+                    const imagenVistaPrevia = document.getElementById('imagen-vista-previa');
+                    imagenVistaPrevia.src = imagenUrlTemp;
+                    imagenVistaPrevia.style.display = 'block';
+                }
+
+                // Se usa para enviar los datos modificados de la reserva al servidor.
+                function guardarCambios(event) {
+                    event.preventDefault();
+
+                    const formData = new FormData();
+                    formData.append('nro_reserva', nro_reserva);
+                    formData.append('nro_habitacion', document.getElementById('habitacionModificar').value);
+                    formData.append('nro_cliente', document.getElementById('clienteModificar').value);
+                    formData.append('cant_ninios', document.getElementById('niniosModificar').value);
+                    formData.append('cant_adultos', document.getElementById('adultosModificar').value);
+                    formData.append('fecha_ingreso', document.getElementById('ingresoModificar').value);
+                    formData.append('fecha_egreso', document.getElementById('egresoModificar').value);
+
+                    // Si se ha seleccionado una imagen nueva, la añade al formData. 
+                    if (imagenSeleccionada) {
+                        formData.append('reserva_qr', imagenSeleccionada, imagenSeleccionada.name);
+                    }
+
+                    fetch(URL + 'reservas/' + nro_reserva, {
+                        method: 'PUT',
+                        body: formData,
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                return response.json()
+                            } else {
+                                throw new Error('Error al guardar los cambios de la reserva.')
+                            }
+                        })
+                        .then(data => {
+                            alert('Reserva actualizada correctamente.');
+                            limpiarFormulario();
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error al actualizar la reserva.');
+                        });
+                }
+
+                // Restablece todas las variables relacionadas con el formulario a sus valores iniciales, lo que efectivamente "limpia" el formulario.
+                function limpiarFormulario() {
+                    document.getElementById('nro_reserva').value = '';
+                    document.getElementById('habitacionModificar').value = '';
+                    document.getElementById('niniosModificar').value = '';
+                    document.getElementById('adultosModificar').value = '';
+                    document.getElementById('ingresoModificar').value = '';
+                    document.getElementById('egresoModificar').value = '';
+                    document.getElementById('nuevaImagen').value = '';
+
+                    const imagenActual = document.getElementById('imagen-actual');
+                    imagenActual.style.display = 'none';
+
+                    const imagenVistaPrevia = document.getElementById('imagen-vista-previa');
+                    imagenVistaPrevia.style.display = 'none';
+
+                    nro_reserva = '';
+                    nro_habitacion = '';
+                    nro_cliente = '';
+                    cant_ninios = '';
+                    cant_adultos = '';
+                    fecha_ingreso = '';
+                    fecha_egreso = '';
+                    reserva_qr = '';
+                    imagenSeleccionada = null;
+                    imagenUrlTemp = null;
+                    mostrarDatosReserva = false;
+
+                    document.getElementById('datos-reserva').style.display = 'none';
+                }
+            </script>
+        </section>
+
+    </main>
+    <footer>
+
+        <!-- footer -->
+
+        <section class="footer">
+
+            <div class="box-container">
+
+                <div class="box">
+                    <h3><i class="fas fa-snowflake"></i> ApartHotel Snow</h3>
+                    <p>❄️Tu lugar en el Mundo.</p>
+                    <div class="share">
+                        <a href="https://www.facebook.com" target="_blank" class="fab fa-facebook-f"></a>
+                        <a href="https://www.twitter.com" target="_blank" class="fab fa-twitter"></a>
+                        <a href="https://www.instagram.com" target="_blank" class="fab fa-instagram"></a>
+                        <a href="https://www.linkedin.com" target="_blank" class="fab fa-linkedin"></a>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <h3>contacto</h3>
+                    <p><i class="fas fa-phone"></i> +11456-7890</p>
+                    <p><i class="fas fa-envelope"></i>
+                        <a href="mailto:ApartHotel@gmail.com">ApartHotel@gmail.com</a>
+                    </p>
+                    <p><i class="fas fa-map"></i> Patagonia, Argentina</p>
+                </div>
+
+                <div class="box">
+                    <h3>Información</h3>
+                    <p>suscribite para recibir novedades</p>
+                    <form>
+                        <input type="email" placeholder="Ingrese su email..." class="email">
+                        <button type="submit" class="btn">Suscribirse</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="credit">@creado por <span>Grupo4</span> | todos los derechos reservados!</div>
+
+        </section>
+
+    </footer>
+    <!-- fin footer  -->
+</body>
+
+</html>

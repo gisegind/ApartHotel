@@ -1,0 +1,26 @@
+/* Estilos para todo el proyecto */
+
+.contenedor-centrado {
+    display:flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.book {
+    text-decoration: none;
+    color: #fff;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid lightslategray;
+    border-radius: 5px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+
+    
+}
+
+
+
+

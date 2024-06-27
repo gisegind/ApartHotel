@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApartHotel Snow</title>
+    <link rel="shortcut icon" href="img/icono.png" type="img/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- css link -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+
+    <!-- header  -->
+    <header class="header">
+
+        <a href="index.html" class="logo"> <i class="fas fa-snowflake"></i> ApartHotel Snow</a>
+
+        <nav class="navbar">
+            <a href="index.html">Inicio</a>
+            <a href="nosotros.html">Sobre Nosotros</a>
+            <a href="servicios.html">Servicios</a>
+            <a href="menu.html">Menu</a>
+            <a href="opiniones.html">Testimonios</a>
+        </nav>
+
+        <div class="icons">
+            <div class="fas fa-user" id="login-btn"></div>
+            <div class="fas fa-bars" id="menu-btn"></div>
+        </div>
+
+        <form class="login-form">
+
+            <h3>formulario login</h3>
+
+            <input type="email" placeholder="ingrese su email" class="box">
+            <input type="password" placeholder="ingrese su password" class="box">
+            <div class="remember">
+                <input type="checkbox">
+                <label>Recordarme</label>
+            </div>
+            <a href="index.html" class="btn">logueate ahora</a>
+
+        </form>
+
+    </header>
+    <br><br><br><br><br>
+
+
+    <!--fin header -->
+    <main>
+        <section  class="home" id="home">
+            <div id="alta-form" >
+                <form class="alta-estilo" id="formulario" enctype="multipart/form-data">
+
+                    <label for="nro_habitacion">Nro Habitación: </label>
+                    <input type="number" id="nro_habitacion" name="nro_habitacion" required><br>
+
+                    <label for="nro_cliente">Nro Cliente: </label>
+                    <input type="number" id="nro_cliente" name="nro_cliente" required><br>
+
+                    <label for="cant_ninios">Cantidad Niños: </label>
+                    <input type="number" id="cant_ninios" name="cant_ninios" required><br>
+
+                    <label for="cant_adultos">Cantidad Adultos: </label>
+                    <input type="number" id="cant_adultos" name="cant_adultos" required><br>
+
+                    <label for="fecha_ingreso">Fecha Ingreso: </label>
+                    <input type="date" id="fecha_ingreso" name="fecha_ingreso" required><br>
+
+                    <label for="fecha_egreso">Fecha Egreso: </label>
+                    <input type="date" id="fecha_egreso" name="fecha_egreso" required><br>
+
+                    <label for="reserva_qr">QR:</label>
+                    <input type="file" id="reserva_qr" name="reserva_qr"><br>
+
+                    <button class='btn' type="submit">Ingresar Reserva</button><br>
+                    <a class='form-link' href="reservas.html">Volver a Reservas</a>
+
+                </form>
+
+                <script>
+                    // const URL = "http://127.0.0.1:5000/"
+                    const URL = "https://ggindelli.pythonanywhere.com/"
+                    
+                    
+
+                    //Al subir al servidor, deberá utilizarse la siguiente ruta. USUARIO debe ser reemplazado por el nombre de usuario de Pythonanywhere
+                    //const URL = "https://USUARIO.pythonanywhere.com/"
+
+
+                    // Capturamos el evento de envío del formulario
+                    document.getElementById('formulario').addEventListener('submit', function (event) {
+                        event.preventDefault(); // Evitamos que se envie el form 
+
+                        var formData = new FormData(this);
+
+                        // Realizamos la solicitud POST al servidor
+                        fetch(URL + 'reservas', {
+                            method: 'POST',
+                            body: formData // Aquí enviamos formData. Dado que formData puede contener archivos, no se utiliza JSON.
+                        })
+
+                            //Después de realizar la solicitud POST, se utiliza el método then() para manejar la respuesta del servidor.
+                            .then(function (response) {
+                                if (response.ok) {
+                                    //Si la respuesta es exitosa, convierte los datos de la respuesta a formato JSON.
+                                    return response.json();
+                                } else {
+                                    // Si hubo un error, lanzar explícitamente una excepción
+                                    // para ser "catcheada" más adelante
+                                    throw new Error('Error al agregar el reserva.');
+                                }
+                            })
+
+                            //Respuesta OK, muestra una alerta informando que la reserva se agregó correctamente y limpia los campos del formulario para que puedan ser utilizados para un nuevo producto.
+                            .then(function (data) {
+                                alert('Reserva agregada correctamente.');
+                            })
+
+                            // En caso de error, mostramos una alerta con un mensaje de error.
+                            .catch(function (error) {
+                                alert('Error al agregar el reserva.');
+                            })
+
+                            // Limpiar el formulario en ambos casos (éxito o error)
+                            .finally(function () {
+                                document.getElementById('nro_habitacion').value = "";
+                                document.getElementById('nro_cliente').value = "";
+                                document.getElementById('cant_ninios').value = "";
+                                document.getElementById('cant_adultos').value = "";
+                                document.getElementById('fecha_ingreso').value = "";
+                                document.getElementById('fecha_egreso').value = "";
+                                document.getElementById('reserva_qr').value = "";
+                            });
+                    })
+                </script>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+
+        <!-- footer -->
+
+        <section class="footer">
+
+            <div class="box-container">
+
+                <div class="box">
+                    <h3><i class="fas fa-snowflake"></i> ApartHotel Snow</h3>
+                    <p>❄️Tu lugar en el Mundo.</p>
+                    <div class="share">
+                        <a href="https://www.facebook.com" target="_blank" class="fab fa-facebook-f"></a>
+                        <a href="https://www.twitter.com" target="_blank" class="fab fa-twitter"></a>
+                        <a href="https://www.instagram.com" target="_blank" class="fab fa-instagram"></a>
+                        <a href="https://www.linkedin.com" target="_blank" class="fab fa-linkedin"></a>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <h3>contacto</h3>
+                    <p><i class="fas fa-phone"></i> +11456-7890</p>
+                    <p><i class="fas fa-envelope"></i>
+                        <a href="mailto:ApartHotel@gmail.com">ApartHotel@gmail.com</a>
+                    </p>
+                    <p><i class="fas fa-map"></i> Patagonia, Argentina</p>
+                </div>
+
+                <div class="box">
+                    <h3>Información</h3>
+                    <p>suscribite para recibir novedades</p>
+                    <form>
+                        <input type="email" placeholder="Ingrese su email..." class="email">
+                        <button type="submit" class="btn">Suscribirse</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="credit">@creado por <span>Grupo4</span> | todos los derechos reservados!</div>
+
+        </section>
+
+    </footer>
+    <!-- fin footer  -->
+
+</body>
+
+</html>

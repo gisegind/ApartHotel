@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApartHotel Snow</title>
+    <link rel="shortcut icon" href="img/icono.png" type="img/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- css link -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+
+<body>
+
+    <!-- header  -->
+    <header class="header">
+
+        <a href="index.html" class="logo"> <i class="fas fa-snowflake"></i> ApartHotel Snow</a>
+
+        <nav class="navbar">
+            <a href="index.html">Inicio</a>
+            <a href="nosotros.html">Sobre Nosotros</a>
+            <a href="servicios.html">Servicios</a>
+            <a href="menu.html">Menu</a>
+            <a href="opiniones.html">Testimonios</a>
+        </nav>
+
+        <div class="icons">
+            <div class="fas fa-user" id="login-btn"></div>
+            <div class="fas fa-bars" id="menu-btn"></div>
+        </div>
+
+        <form class="login-form">
+
+            <h3>formulario login</h3>
+
+            <input type="email" placeholder="ingrese su email" class="box">
+            <input type="password" placeholder="ingrese su password" class="box">
+            <div class="remember">
+                <input type="checkbox">
+                <label>Recordarme</label>
+            </div>
+            <a href="index.html" class="btn">logueate ahora</a>
+
+        </form>
+
+    </header>
+    <br><br><br><br><br>
+
+    <!--fin header -->
+    <main>
+        <section class="home" id="home">
+            <div class="listar-section">
+
+                <table class="reservas-table" id="reservas-table"> <!-- Se crea una tabla para mostrar las reservas -->
+                    <thead> <!--Encabezado de la tabla -->
+                        <tr>
+                            <th>Reserva</th>
+                            <th>Habitación</th>
+                            <th>Niños</th>
+                            <th>Adultos</th>
+                            <th>Ingreso</th>
+                            <th>Egreso</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table><br>
+
+                <div class="a-table">
+                    <a href="reservas.html">Volver a Reservas</a>
+                </div>
+                <script>
+                    const URL = "https://ggindelli.pythonanywhere.com/"
+                    // const URL = "http://127.0.0.1:5000/"
+                    
+                   
+
+
+                    // Obtiene el contenido de la tabla Reservas
+                    function obtenerReservas() {
+                        fetch(URL + 'reservas') // Realiza una solicitud GET al servidor y obtener la lista de reservas.
+                            .then(response => {
+                                // Si es exitosa (response.ok), convierte los datos de la respuesta de formato JSON a un objeto JavaScript.
+                                if (response.ok) { return response.json(); }
+                            })
+                            // Asigna los datos de las reservas obtenidass a la propiedad reservas del estado.
+                            .then(data => {
+                                const reservasTable = document.getElementById('reservas-table').getElementsByTagName('tbody')[0];
+                                reservasTable.innerHTML = ''; // Limpia la tabla antes de insertar nuevos datos
+                                data.forEach(reserva => {
+                                    const row = reservasTable.insertRow();
+                                    row.innerHTML = `
+                            <td>${reserva.nro_reserva}</td>
+                            <td>${reserva.nro_habitacion}</td>
+                            <td>${reserva.cant_ninios}</td>
+                            <td>${reserva.cant_adultos}</td>
+                            <td>${reserva.fecha_ingreso}</td>
+                            <td>${reserva.fecha_egreso}</td>
+                            
+                            <td><button class="btn" onclick="eliminarReserva('${reserva.nro_reserva}')">Eliminar</button></td>
+                        `;
+                                });
+                            })
+                            // hice una modificacion le agregue clase al boton OJO chequear que funcione
+
+                            // Captura y maneja errores, mostrando una alerta en caso de error al obtener las reservas
+                            .catch(error => {
+                                console.log('Error:', error);
+                                alert('Error al obtener las reservas.');
+                            });
+                    }
+
+                    // Se utiliza para eliminar una reserva
+                    function eliminarReserva(nro_reserva) {
+                        // Se muestra un diálogo de confirmación. Si el usuario confirma, se realiza una solicitud DELETE al servidor a través de fetch(URL + 'productos/${codigo}', {method: 'DELETE' }).
+                        if (confirm('¿Estás seguro de que quieres eliminar esta reserva?')) {
+                            fetch(URL + `reservas/${nro_reserva}`, { method: 'DELETE' })
+                                .then(response => {
+                                    if (response.ok) {
+                                        // Si es exitosa (response.ok), elimina la reserva y da mensaje de ok.
+                                        obtenerReservas(); // Vuelve a obtener la lista de reservas para actualizar la tabla.
+                                        alert('Reserva eliminada correctamente.');
+                                    }
+                                })
+                                // En caso de error, mostramos una alerta con un mensaje de error.
+                                .catch(error => {
+                                    alert(error.message);
+                                });
+                        }
+                    }
+
+                    // Cuando la página se carga, llama a obtenerProductos para cargar la lista de productos.
+                    document.addEventListener('DOMContentLoaded', obtenerReservas);
+                </script>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+
+        <!-- footer -->
+
+        <section class="footer">
+
+            <div class="box-container">
+
+                <div class="box">
+                    <h3><i class="fas fa-snowflake"></i> ApartHotel Snow</h3>
+                    <p>❄️Tu lugar en el Mundo.</p>
+                    <div class="share">
+                        <a href="https://www.facebook.com" target="_blank" class="fab fa-facebook-f"></a>
+                        <a href="https://www.twitter.com" target="_blank" class="fab fa-twitter"></a>
+                        <a href="https://www.instagram.com" target="_blank" class="fab fa-instagram"></a>
+                        <a href="https://www.linkedin.com" target="_blank" class="fab fa-linkedin"></a>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <h3>contacto</h3>
+                    <p><i class="fas fa-phone"></i> +11456-7890</p>
+                    <p><i class="fas fa-envelope"></i>
+                        <a href="mailto:ApartHotel@gmail.com">ApartHotel@gmail.com</a>
+                    </p>
+                    <p><i class="fas fa-map"></i> Patagonia, Argentina</p>
+                </div>
+
+                <div class="box">
+                    <h3>Información</h3>
+                    <p>suscribite para recibir novedades</p>
+                    <form>
+                        <input type="email" placeholder="Ingrese su email..." class="email">
+                        <button type="submit" class="btn">Suscribirse</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="credit">@creado por <span>Grupo4</span> | todos los derechos reservados!</div>
+
+        </section>
+
+    </footer>
+    <!-- fin footer  -->
+</body>
+
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/icono.png" type="img/png">
+    <title>ApartHotel Snow</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!--  css link -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- header  -->
+
+    <header class="header">
+
+        <a href="index.html" class="logo"> <i class="fas fa-snowflake"></i> ApartHotel Snow</a>
+
+        <nav class="navbar">
+            <a href="index.html">Inicio</a>
+            <a href="nosotros.html">Sobre Nosotros</a>
+            <a href="servicios.html">Servicios</a>
+            <a href="menu.html">Menu</a>
+            <a href="opiniones.html">Testimonios</a>
+        </nav>
+
+        <div class="icons">
+            <div class="fas fa-user" id="login-btn"></div>
+            <div class="fas fa-bars" id="menu-btn"></div>
+        </div>
+
+        <form class="login-form">
+
+            <h3>formulario login</h3>
+
+            <input type="email" placeholder="ingrese su email" class="box">
+            <input type="password" placeholder="ingrese su password" class="box">
+            <div class="remember">
+                <input type="checkbox">
+                <label>Recordarme</label>
+            </div>
+            <a href="index.html" class="btn">logueate ahora</a>
+
+        </form>
+
+    </header>
+    <br><br><br><br>
+
+    <!--fin header  -->
+
+
+    <main>
+
+        <!-- sección opinión -->
+        <section class="review" id="review">
+
+            <div class="content">
+                <h1 class="heading"><span>Nuestros </span> Clientes</h1>
+                <h3>Testimonios de Invitados: Historias de nevada felicidad</h3>
+                <p>Descubre la magia del ApartHotel Snow atraves de los ojos de nuestros queridos clientes.Desde
+                    emocionantes aventuras de esquí hasta acogedoras veladas junto al fuego, nuestro resort ha sido un
+                    telón de fondo para innumerables recuerdos inolvidables</p>
+            </div>
+
+            <div class="box-container">
+
+                <div class="box">
+                    <p>Quedé maravillado con la arquitectura del complejo.</p>
+                    <div class="user">
+                        <img src="img/pic-1.png" alt="">
+                        <div class="info">
+                            <h3>Maty</h3>
+                            <span>Arquitecto</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <p>Excelente la atención de todos sus empleados.</p>
+                    <div class="user">
+                        <img src="img/pic-2.png" alt="">
+                        <div class="info">
+                            <h3>Gise</h3>
+                            <span>Diseñadora</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <p>Un lugar encantador para conocer gente de todo el mundo.</p>
+                    <div class="user">
+                        <img src="img/pic-3.png" alt="">
+                        <div class="info">
+                            <h3>Kary</h3>
+                            <span>Desarrolladora</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <p>El mejor lugar para relajarse y disfrutar de la experiencia.</p>
+                    <div class="user">
+                        <img src="img/pic-4.png" alt="">
+                        <div class="info">
+                            <h3>Dylem</h3>
+                            <span>Programador</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="contact">
+                <div class="container">
+                    <div class="contact-img">
+                        <img src="//img.freepik.com/fotos-premium/agradable-familia-feliz-divirtiendose-nieve-invierno-foto-alta-calidad_470178-21011.jpg"
+                            alt="">
+
+                    </div>
+
+                    <div class="contact-content">
+                        <!-- Encabezado -->
+                        <div class="section-heading">
+                            <h2>Muéstranos tu experiencia</h2>
+                            <p>Subí foto y comentario de tu estadía</p>
+                        </div>
+                        <br><br>
+
+                        <div class="contact-form-area">
+
+                            <form id="formularioImagen">
+                                <!-- Opciones de Redes-->
+                                <div class="col-md-5">
+                                    <div class="radio">
+                                        <label for="opcion1"> <input type="radio" name="opcion1" id="opcion1"
+                                                value="opcion1"> Facebook </label>
+                                        <label for="opcion2"> <input type="radio" name="opcion2" id="opcion2"
+                                                value="opcion2"> Instagram </label>
+                                        <label for="opcion3"> <input type="radio" name="opcion3" id="opcion3"
+                                                value="opcion3"> X </label>
+                                        <br><br>
+                                    </div>
+                                    <!-- Comentario -->
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="comment" id="comment" cols="20" rows="10"
+                                            placeholder="Escriba un Comentario..."></textarea>
+                                    </div>
+                                    <br>
+                                    <!-- Términos y Condiciones-->
+                                    <div class="checkbox">
+                                        <input type="checkbox" name="terminos" id="terminos" value="yes"> Acepto
+                                        Términos y Condiciones
+                                        <br><br>
+                                    </div>
+                                    <!-- Subida de Imagen-->
+                                    <div>
+                                        <label for="imagen"></label>
+                                        <input type="file" id="imagen" name="imagen" accept="image/*">
+                                    </div>
+                                    <br><br>
+                                    <!-- Botón para enviar todo-->
+                                    <div>
+                                        <button id="orderButton" type="submit" class="btn" value="Enviar">Subir
+                                            Imagen</button>
+                                    </div>
+                            </form>
+                            <!-- Si los datos fueron validados correctamente se subirá la imagen-->
+                            <div id="mensajeExito" style="display: none">
+                                <br><span class="redes">¡Gracias tu imagen se cargó exitosamente!</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br><br><br>
+                </div>
+            </div>
+            
+
+            <!-- fin sección opinión -->
+
+            <!-- Area de Contacto -->
+
+
+
+            <div class="container">
+
+                <div class="contact">
+                    <!-- Encabezado -->
+                    <div class="section-heading">
+                        <h2>Mantente en contacto</h2>
+                        <p>Mandanos un mensaje, nos comunicaremos</p>
+                    </div>
+                    <br>
+
+                    <!-- Formulario de Contacto  -->
+                    <div class="contact-form-area">
+                        <form id="formulario-consulta">
+
+                            <div class="col-md-5">
+
+                                <div class="form-group">
+                                    <label for="contact-name"></label>
+                                    <input type="text" class="form-control" name="contact-name" id="contact-name"
+                                        maxlength="30" placeholder="Tu Nombre...">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <input type="email" class="form-control" name="contact-email" id="contact-email"
+                                        placeholder="Tu Email..." required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="contact-subject" id="contact-subject"
+                                        placeholder="Motivo...">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <textarea class="form-control" name="message" id="message" cols="30" rows="10"
+                                        placeholder="Escriba un Mensaje..." required></textarea>
+                                </div>
+
+                                <div>
+                                    <!-- VER COMO SE ENVIA LA CONSULTA CON JS -->
+                                    <button id="orderButton" type="submit" class="btn">Enviar Consulta</button>
+                                    <button id="orderButton1" type="reset" class="btn">Limpiar Formulario</button>
+                                    <br><br><span class="validacion" id="validacion"></span>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="contact-content">
+                    <!-- Google Maps -->
+                    <div class="map-area col-12">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d757685.9725064886!2d-71.96340531257931!3d-42.11366355097588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x961c06262273a10b%3A0x9b0cab091363d8a6!2sCerro%20Anexo!5e0!3m2!1ses-419!2sar!4v1714784468694!5m2!1ses-419!2sar"
+                            width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- fin area contacto-->
+    </main>
+
+
+    <!--  footer -->
+    <footer>
+        <section class="footer">
+
+            <div class="box-container">
+
+                <div class="box">
+                    <h3><i class="fas fa-snowflake"></i> ApartHotel Snow</h3>
+                    <p>❄️Tu lugar en el Mundo.</p>
+                    <div class="share">
+                        <a href="https://www.facebook.com" target="_blank" class="fab fa-facebook-f"></a>
+                        <a href="https://www.twitter.com" target="_blank" class="fab fa-twitter"></a>
+                        <a href="https://www.instagram.com" target="_blank" class="fab fa-instagram"></a>
+                        <a href="https://www.linkedin.com" target="_blank" class="fab fa-linkedin"></a>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <h3>Contacto</h3>
+                    <p><i class="fas fa-phone"></i> +11456-7890</p>
+                    <p><i class="fas fa-envelope"></i>
+                        <a href="mailto:ApartHotel@gmail.com">ApartHotel@gmail.com</a>
+                    </p>
+                    <p><i class="fas fa-map"></i> Patagonia, Argentina</p>
+                </div>
+
+                <div class="box">
+                    <h3>Informes</h3>
+                    <p>Suscribite para recibir novedades</p>
+                    <form action="">
+                        <input type="email" placeholder="ingrese su email..." class="email">
+                        <button type="submit" class="btn">Suscribirse</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="credit">@creado por <span>Grupo4</span> | todos los derechos reservados!</div>
+
+        </section>
+    </footer>
+    <!-- fin footer  -->
+
+    <!-- jquery cdn link  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- custom js link -->
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
