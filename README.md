@@ -40,7 +40,7 @@ La página es completamente **responsiva**, con un diseño móvil optimizado uti
 
 Acceder al proyecto en línea a través del siguiente enlace:
 
-[**Web de Reservas Hoteleras - ApartHotel**](https://aparthotelsnow.netlify.app/)
+[**Web de Reservas Hoteleras - ApartHotel**](https://gisegind.github.io/ApartHotel/)
 
 
 
